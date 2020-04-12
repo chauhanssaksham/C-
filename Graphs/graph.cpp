@@ -9,9 +9,6 @@ void printDFS(int **edges, int n, int sv, bool* visited){
     cout << sv << " ";
     visited[sv] = true;
     for (int i=0; i<n; i++){
-        if (i==sv){
-            continue;
-        }
         if (edges[sv][i] == 1){
             if (visited[i]){
                 continue;
@@ -19,7 +16,6 @@ void printDFS(int **edges, int n, int sv, bool* visited){
             printDFS(edges, n, i, visited);
         }
     }
-    cout << endl;
 }
 
 void printBFS(int **edges, int n, int sv, bool *visited){
@@ -232,6 +228,7 @@ vector<vector<int>*> *getComponents(int **edges, int n){
 
 // 7 8 0 2 0 1 1 3 1 4 2 6 3 4 4 5 6 5
 // 13 12 0 1 0 2 1 3 1 4 2 6 3 5 4 5 5 6 9 10 10 12 11 9 11 12
+// 8 9 0 1 0 2 1 3 1 4 2 6 3 5 4 5 5 6 6 7
 int main(){
     int n, e;
     // cout << "Enter the number of vertices: " << endl;
@@ -252,14 +249,7 @@ int main(){
         edges[f][s] = 1;
         edges[s][f] = 1;
     }
-    vector<vector<int>*> *components = getComponents(edges, n);
-    for(int i=0; i<(*components).size(); i++){
-        vector<int> *component = (*components)[i];
-        for(int j=0; j<component->size(); j++){
-            cout << component->at(j) << " ";
-        }
-        cout << endl;
-    }
+    BFS(edges, n);
     // cout << components->size();
     for (int i=0; i<n; i++){
         delete [] edges[i];
